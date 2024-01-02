@@ -1,12 +1,7 @@
 import {fetchPromise, postComment}  from './api.js';
-import {render} from './render.js';
+import {renderLogin} from './render.js';
 "use strict";
-    const loadingCommentElement = document.getElementById ('loadingComment')
-    const loadingCommentsElement = document.getElementById ('loadingComments')
-    const nameInputElement = document.getElementById ('name-input');
-    const commentInputElement = document.getElementById ('comment-input');
-    const buttonElement = document.getElementById ('buttonElement');
-    const listElement = document.getElementById ('comList');
+    const loadingCommentElement = document.getElementById ('loadingComment');
     const formElement = document.getElementById ('form');
 
     loadingCommentElement.style.display = "none";
@@ -50,7 +45,15 @@ import {render} from './render.js';
     })
 };
 
-getComments();
+    getComments();
+
+
+    const loadingCommentsElement = document.getElementById ('loadingComments')
+    const nameInputElement = document.getElementById ('name-input');
+    const commentInputElement = document.getElementById ('comment-input');
+    const buttonElement = document.getElementById ('buttonElement');
+    const listElement = document.getElementById ('comList');
+    
 
     function formatDate(date) {
 
@@ -95,10 +98,12 @@ getComments();
     
 
     const renderComments = () => {
-    render({commentsData, listElement});
+    renderLogin({commentsData, listElement});
     initEventListener();
     replyComments();
     }
+
+    
 
     const replyComments = () => {
       const quoteElements = document.querySelectorAll(".comment");
@@ -172,4 +177,5 @@ getComments();
         })
 
         getComments();
+        
 

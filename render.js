@@ -1,5 +1,6 @@
 
-export function render ({commentsData, listElement}) {
+export function renderLogin ({commentsData}) {
+  const appElement = document.getElementById ("app");
     const commentsHtml = commentsData.map ((comment, index) => {
         return `<li class="comment" data-index = "${index}">
           <div class="comment-header">
@@ -19,6 +20,36 @@ export function render ({commentsData, listElement}) {
           </div>
         </li>`
       }).join('');
-      listElement.innerHTML = commentsHtml;
+
+      const appHtml = 
+        `<div class="container">
+      <ul class="comments" id="comList">${commentsHtml}
+      
+      </ul>
+      <div class="add-form"
+      id = "form">
+        <input
+          type="text"
+          class="add-form-name"
+          id = "name-input"
+          placeholder="Введите ваше имя"
+        />
+        <textarea
+          type="textarea"
+          class="add-form-text"
+          id = "comment-input"
+          placeholder="Введите ваш коментарий"
+          rows="4"
+        ></textarea>
+        <div class="add-form-row">
+          <button class="add-form-button" id="buttonElement">Написать</button>
+        </div>
+      </div>
+    </div>`
+      
+
+     // const auth = 
+     // `<p class = "container">Для добавления клмментария, пожалуйста, авторизуйтесь</p>`
+    appElement.innerHTML = appHtml;
 
 }

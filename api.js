@@ -1,5 +1,12 @@
+const apiUrl = "https://wedev-api.sky.pro/api/v2/ekaterina-mikhalko/comments";
+const userUrl = "https://wedev-api.sky.pro/api/user/login";
+export let token;
+export const setToken = (newToken) =>{
+  token = newToken;
+};
+
 export function fetchPromise() {
-    return fetch ("https://wedev-api.sky.pro/api/v1/ekaterina-mikhalko/comments", {
+    return fetch (apiUrl, {
       metod: "GET"
     })
 
@@ -14,8 +21,11 @@ export function fetchPromise() {
 }
 
 export function postComment({text, name}) {
-    return fetch ("https://wedev-api.sky.pro/api/v1/ekaterina-mikhalko/comments", {
+    return fetch (apiUrl, {
           method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
           body: JSON.stringify({
             text: text
             .replaceAll("&", "&amp;")
@@ -29,6 +39,19 @@ export function postComment({text, name}) {
             .replaceAll('"', "&quot;"),
             forceError: true,
           }),
+          
 
         })
+}
+
+export function login ({login, password}) {
+  return fetch (userUrl, {
+    method: "POST",
+    body: JSON.stringify({
+      login,
+      password,
+    }),
+  }).then((response) => {
+    return response.json();
+  });
 }
