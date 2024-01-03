@@ -1,10 +1,7 @@
 import {fetchPromise, postComment}  from './api.js';
-import {renderLogin} from './render.js';
-"use strict";
-    const loadingCommentElement = document.getElementById ('loadingComment');
-    const formElement = document.getElementById ('form');
+import {renderCommentElement} from './render.js';
 
-    loadingCommentElement.style.display = "none";
+  
 
     const getComments = () => {
 
@@ -19,20 +16,14 @@ import {renderLogin} from './render.js';
     })
      commentsData = appComments;
      renderComments();
+     //const loadingCommentElement = getElementById("loadingComment");
+     //console.log (loadingCommentElement);
+     //loadingCommentElement.style.display = 'none';
+
   })
-  .then ((data) =>{
-      loadingCommentElement.style.display = "none";
-      formElement.style.display = "flex";
-      loadingCommentsElement.style.display = "none";
-      nameInputElement.value = '';
-      commentInputElement.value = '';
-      return;
-    })
     
     .catch ((error) => {
-      loadingCommentElement.style.display = "none";
-      formElement.style.display = "flex";
-      loadingCommentsElement.style.display = "none";
+
       if (error.message === "Сервер сломался") {
         alert ("Кажется, что-то пошло не так, попробуйте позже")
         return;
@@ -45,15 +36,10 @@ import {renderLogin} from './render.js';
     })
 };
 
-    getComments();
+   // getComments();
 
 
-    const loadingCommentsElement = document.getElementById ('loadingComments')
-    const nameInputElement = document.getElementById ('name-input');
-    const commentInputElement = document.getElementById ('comment-input');
-    const buttonElement = document.getElementById ('buttonElement');
-    const listElement = document.getElementById ('comList');
-    
+   
 
     function formatDate(date) {
 
@@ -75,7 +61,7 @@ import {renderLogin} from './render.js';
 
     let commentDate = formatDate (new Date);
 
-    let commentsData = []
+    export let commentsData = []
 
 
     const initEventListener = () => {
@@ -98,9 +84,10 @@ import {renderLogin} from './render.js';
     
 
     const renderComments = () => {
-    renderLogin({commentsData, listElement});
+    renderCommentElement();
     initEventListener();
     replyComments();
+    sendComment();
     }
 
     
@@ -111,8 +98,7 @@ import {renderLogin} from './render.js';
         const index = quoteElement.dataset.index;
         quoteElement.addEventListener ("click", ()=> {
           let commentAnswer = document.querySelector('.add-form-text');
-          commentAnswer.value = `${commentsData[index].text}: ${commentsData[index].name}`;
-          renderComments();       
+          commentAnswer.value = `${commentsData[index].text}: ${commentsData[index].name}`;  
 
         })
 
@@ -122,29 +108,36 @@ import {renderLogin} from './render.js';
     replyComments();
     renderComments();
 
-    buttonElement.addEventListener("click", ()=>{
-      nameInputElement.style.backgroundColor = "";
-      commentInputElement.style.backgroundColor = "";
-
-      if (nameInputElement.value === '' && commentInputElement.value === ''){
-        nameInputElement.style.backgroundColor = "red";
-        commentInputElement.style.backgroundColor = "red";
-        return;
-      } else
-
-
-      if (nameInputElement.value === '') {
-           nameInputElement.style.backgroundColor = "red";
-           return;
-        
-       } else  
-        if (commentInputElement.value === ''){
-         commentInputElement.style.backgroundColor = "red";
+    function sendComment () {
+      const loadingCommentsElement = document.getElementById ('loadingComments')
+      const nameInputElement = document.getElementById ('name-input');
+      const commentInputElement = document.getElementById ('comment-input');
+      const buttonElement = document.getElementById ('buttonElement');
+      const loadingCommentElement = document.getElementById('loadingComment');
+      const formElement = document.getElementById('form');
+      
+      buttonElement.addEventListener ("click", ()=>{
+        nameInputElement.style.backgroundColor = "";
+        commentInputElement.style.backgroundColor = "";
+  
+        if (nameInputElement.value === '' && commentInputElement.value === ''){
+          nameInputElement.style.backgroundColor = "red";
+          commentInputElement.style.backgroundColor = "red";
           return;
-        }
-
+        } else
+  
+  
+        if (nameInputElement.value === '') {
+             nameInputElement.style.backgroundColor = "red";
+             return;
+          
+         } else  
+          if (commentInputElement.value === ''){
+           commentInputElement.style.backgroundColor = "red";
+            return;
+          }
+  
         loadingCommentElement.style.display = "block";
-        loadingCommentElement.style.value = 'Комментарий добавляется';
         formElement.style.display = "none";
 
         postComment({text: commentInputElement.value, name: nameInputElement.value}).then ((response) =>{
@@ -153,8 +146,12 @@ import {renderLogin} from './render.js';
           } else if(response.status === 500){
             throw new Error ("Сервер сломался");
           } else {
-            return;
-          }
+            formElement.style.display ="flex";
+            commentInputElement.value='';
+            nameInputElement.value='';
+          loadingCommentElement.style.display = "none" ;
+        getComments();
+            }
         })
         .catch ((error) => {
           loadingCommentElement.style.display = "none";
@@ -175,7 +172,7 @@ import {renderLogin} from './render.js';
           };
         });
         })
-
+      }
         getComments();
         
 

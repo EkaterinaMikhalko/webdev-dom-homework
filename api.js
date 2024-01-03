@@ -1,4 +1,4 @@
-const apiUrl = "https://wedev-api.sky.pro/api/v2/ekaterina-mikhalko/comments";
+const apiUrl = "https://wedev-api.sky.pro/api/v1/ekaterina-mikhalko/comments";
 const userUrl = "https://wedev-api.sky.pro/api/user/login";
 export let token;
 export const setToken = (newToken) =>{
@@ -37,7 +37,7 @@ export function postComment({text, name}) {
             .replaceAll("<", "&lt;")
             .replaceAll(">", "&gt;")
             .replaceAll('"', "&quot;"),
-            forceError: true,
+            //forceError: true,
           }),
           
 

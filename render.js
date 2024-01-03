@@ -1,5 +1,6 @@
+import { commentsData } from "./main.js";
 
-export function renderLogin ({commentsData}) {
+export function renderCommentElement () {
   const appElement = document.getElementById ("app");
     const commentsHtml = commentsData.map ((comment, index) => {
         return `<li class="comment" data-index = "${index}">
@@ -22,10 +23,11 @@ export function renderLogin ({commentsData}) {
       }).join('');
 
       const appHtml = 
-        `<div class="container">
-      <ul class="comments" id="comList">${commentsHtml}
+        `<ul class="comments" id="comList">${commentsHtml}
       
       </ul>
+      <div class="loadComment" id = "loadingComment">Комментарий добавляется</div>
+      
       <div class="add-form"
       id = "form">
         <input
@@ -44,8 +46,7 @@ export function renderLogin ({commentsData}) {
         <div class="add-form-row">
           <button class="add-form-button" id="buttonElement">Написать</button>
         </div>
-      </div>
-    </div>`
+      </div>`
       
 
      // const auth = 
