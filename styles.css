@@ -140,3 +140,6 @@ body {
     background-color: red;
   }
 
+#loadingComment {
+  display: none;
+}
