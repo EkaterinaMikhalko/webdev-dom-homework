@@ -2,7 +2,6 @@ import { postComment } from "./api.js";
 import { getComments } from "./main.js";
 
 export function sendComment() {
-    const loadingCommentsElement = document.getElementById('loadingComments')
     const nameInputElement = document.getElementById('name-input');
     const commentInputElement = document.getElementById('comment-input');
     const buttonElement = document.getElementById('buttonElement');

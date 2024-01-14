@@ -2,14 +2,16 @@ import { renderLoginStartPage } from "./loginPage.js";
 import { commentsData, user } from "./main.js";
 import { sendComment } from "./sendComment.js";
 import { token } from "./api.js"
+import { format } from "date-fns";
 
 export function renderCommentElement() {
   const appElement = document.getElementById("app");
   const commentsHtml = commentsData.map((comment, index) => {
+    const createDate = format(new Date(comment.date), 'yyyy-MM-dd hh.mm.ss');
     return `<li class="comment" data-index = "${index}">
           <div class="comment-header">
             <div>${comment.name}</div>
-            <div>${comment.date}</div>
+            <div>${createDate}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
